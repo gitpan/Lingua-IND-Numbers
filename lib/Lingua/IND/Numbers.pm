@@ -1,6 +1,6 @@
 package Lingua::IND::Numbers;
 
-$Lingua::IND::Numbers::VERSION = '0.01';
+$Lingua::IND::Numbers::VERSION = '0.02';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ Lingua::IND::Numbers - Indian Numbering System representation
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
@@ -34,7 +34,7 @@ languages.
 The  terms  lakh  (100,000)  and crore (10,000,000) are used in Indian English to
 express large numbers.
 
-For example, in India 150,000 rupees becomes 1.5 lakh rupees,
+For example, in India 150,000 rupees becomes 1 Lakh 50 Hazar rupees,
 
     +------------------------------------+----------------------------+
     | Name                               | Indian Figure              |
@@ -80,9 +80,10 @@ It returns the number represented in the Indian Numbering System
 sub to_string {
     my ($self, $num) = @_;
 
-    die "ERROR: Undefined number.\n"      unless defined $num;
-    die "ERROR: Invalid number [$num].\n" unless ($num =~ /^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/);
-    die "ERROR: Only positive number.\n"  unless ($num > 0);
+    die "ERROR: Undefined number.\n"         unless defined $num;
+    die "ERROR: Invalid number [$num].\n"    unless ($num =~ /^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/);
+    die "ERROR: No decimal number [$num].\n" if ($num =~ /\./);
+    die "ERROR: Only positive number.\n"     unless ($num > 0);
 
     my $chart   = $self->chart;
     my $units   = $self->units;

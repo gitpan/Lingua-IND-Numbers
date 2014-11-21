@@ -1,4 +1,7 @@
 Revision history for Lingua-IND-Numbers
 
+0.02  Fri Nov 21 20:53:20 2014
+      - Added test script 02-lingua-ind-numbers.t.
+
 0.01  Thu Nov 20 22:00:00 2014
       - First version, released.
