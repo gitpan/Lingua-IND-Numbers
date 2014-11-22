@@ -1,6 +1,6 @@
 package Lingua::IND::Numbers;
 
-$Lingua::IND::Numbers::VERSION = '0.02';
+$Lingua::IND::Numbers::VERSION = '0.03';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ Lingua::IND::Numbers - Indian Numbering System representation
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
@@ -33,8 +33,6 @@ languages.
 
 The  terms  lakh  (100,000)  and crore (10,000,000) are used in Indian English to
 express large numbers.
-
-For example, in India 150,000 rupees becomes 1 Lakh 50 Hazar rupees,
 
     +------------------------------------+----------------------------+
     | Name                               | Indian Figure              |
@@ -61,11 +59,74 @@ For example, in India 150,000 rupees becomes 1 Lakh 50 Hazar rupees,
 
 Source: L<wikipedia|http://en.wikipedia.org/wiki/Indian_Numbering_System>
 
+=head1 Name
+
+    For example, 150000 becomes Ek Lakh Pachaas Hazar.
+
+    +------------+--------+   +------------+--------+   +----------+---------+
+    | Name       | Number |   | Name       | Number |   | Name     | Number  |
+    +------------+--------+   +------------+--------+   +----------+---------+
+    | Ek         |    1   |   | Egyarah    |   11   |   | Ekees    |   21    |
+    | Do         |    2   |   | Barah      |   12   |   | Baees    |   22    |
+    | Teen       |    3   |   | Terah      |   13   |   | Teyees   |   23    |
+    | Chaar      |    4   |   | Chaudah    |   14   |   | Chaubees |   24    |
+    | Paanch     |    5   |   | Pandrah    |   15   |   | Pachees  |   25    |
+    | Chhe       |    6   |   | Solah      |   16   |   | Chhabbis |   26    |
+    | Saat       |    7   |   | Satrah     |   17   |   | Satayees |   27    |
+    | Aath       |    8   |   | Attharah   |   18   |   | Atthaees |   28    |
+    | Nau        |    9   |   | Unnees     |   19   |   | Untees   |   29    |
+    | Das        |   10   |   | Bees       |   20   |   | Tees     |   30    |
+    +------------+--------+   +------------+--------+   +----------+---------+
+
+    +------------+--------+   +------------+--------+   +-----------+--------+
+    | Name       | Number |   | Name       | Number |   | Name      | Number |
+    +------------+--------+   +------------+--------+   +-----------+--------+
+    | Ektee      |   31   |   | Ektalees   |   41   |   | Ekaawan   |   51   |
+    | Battees    |   32   |   | Beyalees   |   42   |   | Baawan    |   52   |
+    | Taitees    |   33   |   | Taitalees  |   43   |   | Tirpan    |   53   |
+    | Chautees   |   34   |   | Chaualees  |   44   |   | Chauwan   |   54   |
+    | Paitees    |   35   |   | Paitalees  |   45   |   | Pachpan   |   55   |
+    | Chhattess  |   36   |   | Chheyalees |   46   |   | Chhappan  |   56   |
+    | Saitees    |   37   |   | Saitalees  |   47   |   | Santawan  |   57   |
+    | Artees     |   38   |   | Artalees   |   48   |   | Anthawan  |   58   |
+    | Unchalees  |   39   |   | Unchaas    |   49   |   | Unsath    |   59   |
+    | Chalees    |   40   |   | Pachaas    |   50   |   | Saath     |   60   |
+    +------------+--------+   +------------+--------+   +-----------+------- +
+
+    +------------+--------+   +------------+--------+   +-----------+--------+
+    | Name       | Number |   | Name       | Number |   | Name      | Number |
+    +------------+--------+   +------------+--------+   +-----------+--------+
+    | Eksath     |   61   |   | Ekhattar   |   71   |   | Ekaase    |   81   |
+    | Baasath    |   62   |   | Bahattar   |   72   |   | Beraase   |   82   |
+    | Tirsath    |   63   |   | Tehattar   |   73   |   | Teraase   |   83   |
+    | Chausath   |   64   |   | Chauhattar |   74   |   | Chauraase |   84   |
+    | Paisath    |   65   |   | Pachhattar |   75   |   | Pachaase  |   85   |
+    | Chheyasath |   66   |   | Chheyattar |   76   |   | Chheyaase |   86   |
+    | Sarsath    |   67   |   | Satattar   |   77   |   | Sataase   |   87   |
+    | Arsath     |   68   |   | Atathar    |   78   |   | Atthaase  |   88   |
+    | Unhattar   |   69   |   | Unnase     |   79   |   | Nawaase   |   89   |
+    | Sattar     |   70   |   | Asse       |   80   |   | Nabbe     |   90   |
+    +------------+--------+   +------------+--------+   +-----------+--------+
+
+    +------------+--------+
+    | Name       | Number |
+    +------------+--------+
+    | Ekkaanwe   |   91   |
+    | Beraanwe   |   92   |
+    | Teraanwe   |   93   |
+    | Chauraanwe |   94   |
+    | Panchaanwe |   95   |
+    | Chheyaanwe |   96   |
+    | Santaanwe  |   97   |
+    | Anthaanwe  |   98   |
+    | Neenaanwe  |   99   |
+    +------------+--------+
+
 =head1 METHODS
 
 =head2 to_string()
 
-It returns the number represented in the Indian Numbering System
+It returns the number represented in the Indian Numbering System.
 
     use strict; use warnings;
     use Lingua::IND::Numbers;
@@ -124,8 +185,8 @@ sub to_string {
         }
 
         if ($number > 0) {
-            @digits   = split //,$number;
-            $size     = scalar(@digits);
+            @digits = split //,$number;
+            $size   = scalar(@digits);
         }
         else {
             $string =~ s/\s+$//;
@@ -142,9 +203,9 @@ sub _get_chart {
 
     return [
         '',
-        qw/Ek       Do       Teen      Chaar      Paanch     Che        Saat      Aath      Nau       Das
+        qw/Ek       Do       Teen      Chaar      Paanch     Chhe       Saat      Aath      Nau       Das
            Egyarah  Barah    Terah     Chaudah    Pandrah    Solah      Satrah    Attharah  Unnees    Bees
-           Ekees    Baees    Teyees    Chaubees   Pachees    Chhabbis   Satayees  Atthaees  Untees    Tees
+           Ekees    Baees    Teyees    Chaubees   Pachees    Chhabbees  Satayees  Atthaees  Untees    Tees
            Ektees   Battees  Taithees  Chautees   Paitees    Chhattees  Saitees   Artees    Unchalees Chalees
            Ektalees Beyalees Taitalees Chaualees  Paitalees  Chheyalees Saitalees Artalees  Unchaas   Pachaas
            Ekaawan  Baawan   Tirpan    Chauwan    Pachpan    Chhappan   Santawan  Anthawan  Unsath    Saath
