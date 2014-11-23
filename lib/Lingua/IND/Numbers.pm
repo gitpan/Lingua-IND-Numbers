@@ -1,6 +1,6 @@
 package Lingua::IND::Numbers;
 
-$Lingua::IND::Numbers::VERSION = '0.03';
+$Lingua::IND::Numbers::VERSION = '0.04';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ Lingua::IND::Numbers - Indian Numbering System representation
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
@@ -37,6 +37,7 @@ express large numbers.
     +------------------------------------+----------------------------+
     | Name                               | Indian Figure              |
     +------------------------------------+----------------------------+
+    | Shunya (Zero)                      | 0                          |
     | Ek (One)                           | 1                          |
     | Das (Ten)                          | 10                         |
     | Sau (One Hundres)                  | 100                        |
@@ -141,14 +142,16 @@ It returns the number represented in the Indian Numbering System.
 sub to_string {
     my ($self, $num) = @_;
 
-    die "ERROR: Undefined number.\n"         unless defined $num;
-    die "ERROR: Invalid number [$num].\n"    unless ($num =~ /^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/);
-    die "ERROR: No decimal number [$num].\n" if ($num =~ /\./);
-    die "ERROR: Only positive number.\n"     unless ($num > 0);
+    die "ERROR: Undefined number.\n"      unless defined $num;
+    die "ERROR: Invalid number [$num].\n" unless ($num =~ /^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/);
+    die "ERROR: Only positive number.\n"  unless ($num >= 0);
+
+    return 'Shunya' if ($num == 0);
 
     my $chart   = $self->chart;
     my $units   = $self->units;
     my $number  = ($num + 0)->bstr();
+    die "ERROR: No decimal number [$num].\n" if ($number =~ /\./);
     my $size    = length($number);
     die "ERROR: No representation in Indian Numbering System.\n" if ($size > 18);
 

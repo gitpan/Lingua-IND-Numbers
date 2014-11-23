@@ -1,5 +1,5 @@
 use strict; use warnings;
-use Test::More tests => 30;
+use Test::More tests => 31;
 use Lingua::IND::Numbers;
 
 my $convert = Lingua::IND::Numbers->new;
@@ -11,6 +11,7 @@ while (<DATA>) {
 }
 
 __DATA__
+0|Shunya
 100|Ek Sau
 190|Ek Sau Nabbe
 1000|Ek Hazaar
