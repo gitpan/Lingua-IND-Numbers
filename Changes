@@ -1,5 +1,10 @@
 Revision history for Lingua-IND-Numbers
 
+0.05  2014-11-27T21:12:00+01:00
+      - Renamed section 'Name' to 'NUMBERS'
+      - Minor changes to the method to_string().
+      - Minor cosmetic changes to the package Lingua::IND::Numbers.
+
 0.04  2014-11-23T13:02:03+01:00
       - Updated Changes file according to CPAN::Changes::Spec package.
       - Added unit test changes.t file.

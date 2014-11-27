@@ -1,6 +1,6 @@
 package Lingua::IND::Numbers;
 
-$Lingua::IND::Numbers::VERSION = '0.04';
+$Lingua::IND::Numbers::VERSION = '0.05';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ Lingua::IND::Numbers - Indian Numbering System representation
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
@@ -60,7 +60,7 @@ express large numbers.
 
 Source: L<wikipedia|http://en.wikipedia.org/wiki/Indian_Numbering_System>
 
-=head1 Name
+=head1 NUMBERS
 
     For example, 150000 becomes Ek Lakh Pachaas Hazar.
 
@@ -125,7 +125,7 @@ Source: L<wikipedia|http://en.wikipedia.org/wiki/Indian_Numbering_System>
 
 =head1 METHODS
 
-=head2 to_string()
+=head2 to_string($number)
 
 It returns the number represented in the Indian Numbering System.
 
@@ -140,18 +140,18 @@ It returns the number represented in the Indian Numbering System.
 =cut
 
 sub to_string {
-    my ($self, $num) = @_;
+    my ($self, $arg) = @_;
 
-    die "ERROR: Undefined number.\n"      unless defined $num;
-    die "ERROR: Invalid number [$num].\n" unless ($num =~ /^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/);
-    die "ERROR: Only positive number.\n"  unless ($num >= 0);
+    die "ERROR: Undefined number.\n"      unless defined $arg;
+    die "ERROR: Invalid number [$arg].\n" unless ($arg =~ /^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/);
+    die "ERROR: Only positive number.\n"  unless ($arg >= 0);
 
-    return 'Shunya' if ($num == 0);
+    return 'Shunya' if ($arg == 0);
 
     my $chart   = $self->chart;
     my $units   = $self->units;
-    my $number  = ($num + 0)->bstr();
-    die "ERROR: No decimal number [$num].\n" if ($number =~ /\./);
+    my $number  = ($arg + 0)->bstr();
+    die "ERROR: No decimal number [$arg].\n" if ($number =~ /\./);
     my $size    = length($number);
     die "ERROR: No representation in Indian Numbering System.\n" if ($size > 18);
 
@@ -221,10 +221,10 @@ sub _get_chart {
 sub _get_units {
 
     return {
-        18 => 'Shankh',  17 => 'Padm'  , 16 => 'Padm'  , 15 => 'Neel',
-        14 => 'Neel'  ,  13 => 'Kharab', 12 => 'Kharab', 11 => 'Arab',
-        10 => 'Arab'  ,   9 => 'Crore' ,  8 => 'Crore' ,  7 => 'Lakh',
-         6 => 'Lakh'  ,   5 => 'Hazaar',  4 => 'Hazaar',  3 => 'Sau' };
+        18 => 'Shankh', 17 => 'Padm'  , 16 => 'Padm'  , 15 => 'Neel',
+        14 => 'Neel'  , 13 => 'Kharab', 12 => 'Kharab', 11 => 'Arab',
+        10 => 'Arab'  ,  9 => 'Crore' ,  8 => 'Crore' ,  7 => 'Lakh',
+         6 => 'Lakh'  ,  5 => 'Hazaar',  4 => 'Hazaar',  3 => 'Sau' };
 }
 
 =head1 AUTHOR
